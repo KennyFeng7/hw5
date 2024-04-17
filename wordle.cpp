@@ -13,7 +13,12 @@ using namespace std;
 
 
 // Add prototypes of helper functions here
-
+void wordlehelper(const std::string& in, 
+                     std::string floating, 
+                     const std::set<std::string>& dict, 
+                     std::set<std::string>& results, 
+                     int index,
+                     std::string current);
 
 // Definition of primary wordle function
 std::set<std::string> wordle(
@@ -22,7 +27,38 @@ std::set<std::string> wordle(
     const std::set<std::string>& dict)
 {
     // Add your code here
-
+    std::set<std::string> results;
+    int index =0;
+    string current ="";
+    wordlehelper(in, floating, dict, results, index, current);
+    return results;
 }
 
 // Define any helper functions here
+void wordlehelper(const std::string& in, 
+                     std::string floating, 
+                     const std::set<std::string>& dict, 
+                     std::set<std::string>& results, 
+                     int index,
+                     std::string current)
+{
+    if (index == in.length()){
+      if (floating.length() == 0 && dict.find(current) != dict.end()){
+        results.insert(current);
+      }
+      return;
+    }
+
+    if (in[index] != '-'){ 
+        wordlehelper(in, floating, dict, results, index + 1, current + in[index]);
+    } 
+    else{
+        for (char c = 'a'; c <= 'z'; c++) {
+            std::string next = floating;
+            if (next.find(c) != std::string::npos){
+                next.erase(next.find(c),1); 
+            }
+            wordlehelper(in, next, dict, results, index + 1, current + c);
+        }
+    }
+}
