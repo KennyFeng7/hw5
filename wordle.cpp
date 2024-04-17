@@ -54,7 +54,12 @@ void wordlehelper(const std::string& in,
         wordlehelper(in, floating, dict, results, index + 1, current + in[index]);
     } 
     else{
-        int count = in.length() - index;
+        int count = 0;
+        for (char c : in) {
+          if (c == '-') {
+            count++;
+          }
+        }
         if(count < floating.length()){
           return;
         }
