@@ -4,6 +4,7 @@
 // For std::remove
 #include <algorithm> 
 #include <map>
+#include <vector>
 #include <set>
 #endif
 
@@ -53,6 +54,10 @@ void wordlehelper(const std::string& in,
         wordlehelper(in, floating, dict, results, index + 1, current + in[index]);
     } 
     else{
+        int count = in.length() - index;
+        if(count < floating.length()){
+          return;
+        }
         for (char c = 'a'; c <= 'z'; c++) {
             std::string next = floating;
             if (next.find(c) != std::string::npos){
@@ -62,3 +67,4 @@ void wordlehelper(const std::string& in,
         }
     }
 }
+
