@@ -55,8 +55,8 @@ void wordlehelper(const std::string& in,
     } 
     else{
         int count = 0;
-        for (char c : in) {
-          if (c == '-') {
+        for ( int i = index; i < in.length(); i++) {
+          if (in[i] == '-') {
             count++;
           }
         }
